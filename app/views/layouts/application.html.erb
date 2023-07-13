@@ -12,10 +12,10 @@
   </head>
 
   <body>
-    <header class="bg-green-700">
+    <header class="flex justify-between bg-green-700">
       <%= image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf' %>
       <h1><%= @page_title %></h1>
-      <h2 class="fixed top-14 left-50 right-0"><%= Time.current %></h2>
+        <h2 class="relative top-7 right-4 text-green-50"><%= l(Time.current, format: :long) %></h2>
     </header>
 
     <section class="flex">
