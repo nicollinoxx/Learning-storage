@@ -20,11 +20,12 @@
 
     <section class="flex">
       <nav class="bg-green-900 p-6">
+        <%= render @cart %>
+
         <ul class="text-gray-300 leading-8">
-          <li><a href="/">Home</a></li>
-          <li><a href="/question">Questions</a></li>
-          <li><a href="http://localhost:3000/products/new">News</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><%= link_to 'store', store_index_path %></li>
+          <li><%= link_to 'new product', new_product_path %></li>
+          <li><%= link_to 'Carts', carts_path %></li>
         </ul>
       </nav>
 
