@@ -20,7 +20,7 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
       post carts_url, params: { cart: {  } }
     end
 
-    assert_redirected_to cart_url(Cart.last)
+    assert_redirected_to store_index_url(Cart.last)
   end
 
   test "should show cart" do
@@ -47,5 +47,12 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to store_index_url
+  end
+
+  test 'should add exclusive item to cart' do
+    assert_difference('LineItem.count', 1) do
+      post line_items_url, params: { product_id: products(:ruby).id }
+      follow_redirect!
+    end
   end
 end

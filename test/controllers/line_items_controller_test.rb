@@ -45,6 +45,15 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
       delete line_item_url(@line_item)
     end
 
-    assert_redirected_to line_items_url
+    assert_redirected_to store_index_url
+  end
+
+  test "should add dupliacated item to cart" do
+    lineitem_counter = LineItem.count
+    post line_items_url, params: { product_id: products(:ruby).id }
+    post line_items_url, params: { product_id: products(:ruby).id }
+    follow_redirect!
+
+    assert_equal 2, lineitem_counter
   end
 end
