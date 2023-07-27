@@ -2,6 +2,7 @@ class LineItemsController < ApplicationController
   include CurrentCart
   before_action :set_cart, :reset_counter_presence, only: %i[ create ]
   before_action :set_line_item, only: %i[ show edit update destroy ]
+  before_action :destroy_separately, only: %i[ destroy ]
 
   # GET /line_items or /line_items.json
   def index
@@ -73,5 +74,12 @@ class LineItemsController < ApplicationController
 
     def reset_counter_presence
       cookies.delete(:counter)
+    end
+
+    def destroy_separately
+      if @line_item.quantity > 1
+        @line_item.update(quantity: @line_item.quantity - 1)
+        redirect_to store_index_url, notice: "only one '#{@line_item.product.title}' was successfully destroyed."
+      end
     end
 end
