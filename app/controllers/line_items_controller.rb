@@ -29,7 +29,7 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        format.turbo_stream 
+        format.turbo_stream { @current_item = @line_item }
         format.html { redirect_to store_index_url }
         format.json { render :show, status: :created, location: @line_item }
       else
@@ -80,6 +80,10 @@ class LineItemsController < ApplicationController
       if @line_item.quantity > 1
         @line_item.update(quantity: @line_item.quantity - 1)
         redirect_to store_index_url, notice: "only one '#{@line_item.product.title}' was successfully destroyed."
+      elsif LineItem.count == 1
+        @cart = Cart.find(session[:cart_id])
+        @cart.destroy
+        redirect_to store_index_url, notice: "Your cart is currently empty"
       end
     end
 end
