@@ -1,5 +1,5 @@
 <%= turbo_stream.replace 'notice' do %>
-  <%= render partial: 'store/notice', locals: {notice: @notice } %>
+  <%= render partial: 'store/notice', locals: {notice: "The '#{@line_item.product.title}' was successfully added." } %>
 <% end %>
 <%= turbo_stream.replace 'cart' do %>
   <%= render partial: 'layouts/cart', locals: {cart: @cart} %>
