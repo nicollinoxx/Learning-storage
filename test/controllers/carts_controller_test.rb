@@ -11,7 +11,7 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_cart_url
+    get new_cart_url(@cart)
     assert_response :success
   end
 
