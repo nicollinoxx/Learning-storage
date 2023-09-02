@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   include CurrentCart
   before_action :set_order, only: %i[ show edit update destroy ]
-  before_action :set_cart, only: %i[ new create ]
+  before_action :set_cart,  only: %i[ new create ]
   before_action :ensure_cart_isnt_empty, only: %i[ new ]
 
   # GET /orders or /orders.json
@@ -31,8 +31,8 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        OrderMailer.received(@order).deliver_later
-        format.html { redirect_to store_index_url, notice: 'Thank you for your order.' }
+        ChargeOrderJob.perform_later(@order,pay_type_params.to_h)
+        format.html { redirect_to store_index_url, notice: "Thank you for your order. Ship date in #{l(@order.ship_date, format: :long)}" }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,9 +43,10 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
+
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to order_url(@order), notice: "Order was successfully updated." }
+        format.html { redirect_to order_url(@order), notice: "Order was successfully updated. Ship date update in #{l(@order.ship_date, format: :long)}" }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,6 +66,17 @@ class OrdersController < ApplicationController
   end
 
   private
+    def pay_type_params
+      if order_params[:pay_type] == "Credit card"
+        params.require(:order).permit(:credit_card_number, :expiration_date)
+      elsif order_params[:pay_type] == "Check"
+        params.require(:order).permit(:routing_number, :account_number)
+      elsif order_params[:pay_type] == "Purchase order"
+        params.require(:order).permit(:po_number)
+      else
+      {}
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
@@ -74,7 +86,6 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:name, :address, :email, :pay_type)
     end
-
 
     def ensure_cart_isnt_empty
       if @cart.line_items.empty?

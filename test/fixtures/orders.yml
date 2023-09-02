@@ -5,7 +5,7 @@ one:
   address: MyText
   email: nicolasalmeida321@gmail.com
   pay_type: Check
-
+  
 two:
   name: Dave Thomas
   address: MyText

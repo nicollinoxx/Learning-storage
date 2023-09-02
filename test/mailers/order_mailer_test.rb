@@ -15,9 +15,9 @@ class OrderMailerTest < ActionMailer::TestCase
     assert_equal ["nicolasalmeida321@gmail.com"], mail.to
     assert_equal ["depot@example.com"], mail.from
     assert_match %r(
-    <td[^>]*>1<\/td>\s*
-    <td>&times;<\/td>\s*
-    <td[^>]*>\s*Programming\sRuby\s1.9\s*</td>
+      <td[^>]*>1<\/td>\s*
+      <td>&times;<\/td>\s*
+      <td[^>]*>\s*Programming\sRuby\s1.9\s*</td>
     )x, mail.body.to_s
   end
 end
