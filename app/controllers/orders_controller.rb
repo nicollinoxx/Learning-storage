@@ -26,6 +26,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.add_line_items_from_cart(@cart)
+    @order.ship_date = Time.current
 
     respond_to do |format|
       if @order.save
@@ -43,6 +44,7 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
+    @order.update(ship_date: Time.current)
 
     respond_to do |format|
       if @order.update(order_params)
@@ -84,7 +86,7 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:name, :address, :email, :pay_type)
+      params.require(:order).permit(:name, :address, :email, :pay_type, :ship_date)
     end
 
     def ensure_cart_isnt_empty
