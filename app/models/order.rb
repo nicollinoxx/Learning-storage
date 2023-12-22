@@ -49,6 +49,7 @@ class Order < ApplicationRecord
     if payment_result.succeeded?
       OrderMailer.received(self).deliver_later
     else
+      mail(to: @order.email, subject: 'Payment Failure Notification')
       raise payment_result.error
     end
   end

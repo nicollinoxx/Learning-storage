@@ -42,7 +42,7 @@ class LineItemsController < ApplicationController
   def update
     respond_to do |format|
       if @line_item.update(line_item_params)
-        format.turbo_stream
+        format.turbo_stream { 'notice' }
         format.html { redirect_to line_item_url(@line_item) }
         format.json { render :show, status: :ok, location: @line_item }
       else

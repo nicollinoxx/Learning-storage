@@ -13,13 +13,13 @@ class Pago
         payment_details.fetch(:expiration_year).to_s
     when :po
       Rails.logger.info "Processing purchase order: " +
-      payment_details.fetch(:po_num).to_s
+        payment_details.fetch(:po_num).to_s
     else
-      raise "Unknown payment_method #{payment_method}"
+      Rails.logger.error "Payment failed! Unknown payment_method #{payment_method}"
+      OpenStruct.new(succeeded?: false)
     end
-
       sleep 3 unless Rails.env.test?
       Rails.logger.info "Done Processing Payment"
       OpenStruct.new(succeeded?: true)
-    end
+  end
 end

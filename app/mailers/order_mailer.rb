@@ -5,6 +5,13 @@ class OrderMailer < ApplicationMailer
   #
   #   en.order_mailer.received.subject
   #
+  def payment_failure(order, error_message)
+   @order = order
+   @error_message = error_message
+
+   mail(to: @order.email, subject: 'Payment Failure Notification')
+  end
+
   def received(order)
     @order = order
     mail to: order.email, subject: 'Pragmatic Store Order Confirmation'
