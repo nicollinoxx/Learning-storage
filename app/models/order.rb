@@ -46,6 +46,7 @@ class Order < ApplicationRecord
       payment_method: payment_method,
       payment_details: payment_details
     )
+    
     if payment_result.succeeded?
       OrderMailer.received(self).deliver_later
     else

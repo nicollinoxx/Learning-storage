@@ -1,0 +1,8 @@
+Dear <%= @order.name %>
+The ship date of you order was updated!
+
+Current date: <%= @order.ship_date %>
+
+You ordered the following items:
+<%= render @order.line_items %>
+We'll send you a separate e-mail when your order ships.

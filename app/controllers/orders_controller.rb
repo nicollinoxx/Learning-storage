@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        ChargeOrderJob.perform_later(@order,pay_type_params.to_h)
+        ChargeOrderJob.perform_later(@order, pay_type_params.to_h)
         format.html { redirect_to store_index_url, notice: "Thank you for your order. Ship date in #{l(@order.ship_date, format: :long)}" }
         format.json { render :show, status: :created, location: @order }
       else
@@ -44,10 +44,9 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
-    @order.update(ship_date: Time.current)
-
     respond_to do |format|
       if @order.update(order_params)
+        OrderMailer.updated(@order).deliver_later(wait: 5.seconds)
         format.html { redirect_to order_url(@order), notice: "Order was successfully updated. Ship date update in #{l(@order.ship_date, format: :long)}" }
         format.json { render :show, status: :ok, location: @order }
       else
@@ -76,7 +75,7 @@ class OrdersController < ApplicationController
       elsif order_params[:pay_type] == "Purchase order"
         params.require(:order).permit(:po_number)
       else
-      {}
+        {}
       end
     end
     # Use callbacks to share common setup or constraints between actions.
