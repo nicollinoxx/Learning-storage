@@ -70,10 +70,10 @@ class OrdersTest < ApplicationSystemTestCase
     assert_equal 1, orders.size
 
     order = orders.first
-    assert_equal "Dave Thomas",
-    assert_equal "123 Main Street", order.address
+    assert_equal "Dave Thomas",      order.name
+    assert_equal "123 Main Street",  order.address
     assert_equal "dave@example.com", order.email
-    assert_equal "Check", order.pay_type
+    assert_equal "Check",            order.pay_type
     assert_equal 1, order.line_items.size
 
     mail = ActionMailer::Base.deliveries.last

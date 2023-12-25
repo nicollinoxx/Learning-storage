@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -23,11 +24,21 @@
       <nav class="bg-green-900 p-6">
         <%= render partial: 'layouts/cart', locals: {cart: @cart } %>
 
-        <ul class="text-gray-300 leading-8">
-          <li><%= link_to 'store', store_index_path %></li>
-          <li><%= link_to 'new product', new_product_path %></li>
+        <ul class="text-gray-300 leading-8 mb-2">
+          <li><%= link_to 'Store', store_index_path %></li>
           <li><%= link_to 'Carts', carts_path %></li>
         </ul>
+
+        <hr>
+
+        <% if session[:user_id] %>
+          <ul class="text-gray-300 leading-8 mt-2">
+            <li><%= link_to 'Orders', orders_path %></li>
+            <li><%= link_to 'Products', products_path %></li>
+            <li><%= link_to 'Users', users_path %></li>
+            <li><%= button_to 'Logout', logout_path, method: :delete %></li>
+          </ul>
+        <% end %>
       </nav>
 
       <main class="container mx-auto mt-4 px-5 flex">

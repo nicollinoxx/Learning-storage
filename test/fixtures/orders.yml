@@ -3,11 +3,13 @@
 one:
   name: Dave Thomas
   address: MyText
-  email: nicolasalmeida321@gmail.com
+  email: dave@gmail.com
   pay_type: Check
-  
+  ship_date: Fri, 22 Dec 2023 16:47:25.573500000 -03 -03:00
+
 two:
   name: Dave Thomas
   address: MyText
   email: dave@gmail.com
   pay_type: Check
+  ship_date: Fri, 22 Dec 2023 16:47:25.573500000 -03 -03:00
