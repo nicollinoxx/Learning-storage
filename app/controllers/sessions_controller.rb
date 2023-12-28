@@ -1,14 +1,13 @@
 class SessionsController < ApplicationController
   skip_before_action :authorize
-  before_action :create_admin_if_admin_nil, only: %i[ create ]
+  before_action :authenticate_user_if_users_nil, only: %i[ create ]
 
   def new
   end
 
   def create
-    user = User.find_by(name: params[:name])
-    if user&.authenticate(params[:password])
-      session[:user_id] = user.id
+    if @user&.authenticate(params[:password])
+      session[:user_id] = @user.id
       redirect_to admin_url
     else
       redirect_to login_url, alert: "Invalid user/password combination"
@@ -22,11 +21,11 @@ class SessionsController < ApplicationController
 
   private
 
-  private
-
-  def create_admin_if_admin_nil
+  def authenticate_user_if_users_nil
     if User.count.zero?
-      User.create(name: params[:name], password: params[:password], password_confirmation: params[:password])
+      @user = User.new(id: '1', name: params[:name], password: params[:password], password_confirmation: params[:password])
+    else
+      @user = User.find_by(name: params[:name])
     end
   end
 end
