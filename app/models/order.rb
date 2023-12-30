@@ -10,7 +10,7 @@ class Order < ApplicationRecord
   }
 
   validates :name, :address, presence: true
-  validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: 'must be a valid email address' }
+  validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
   validates :pay_type, inclusion: PaymentType.pluck(:description), presence: true
 
 
@@ -46,7 +46,7 @@ class Order < ApplicationRecord
       payment_method: payment_method,
       payment_details: payment_details
     )
-    
+
     if payment_result.succeeded?
       OrderMailer.received(self).deliver_later
     else

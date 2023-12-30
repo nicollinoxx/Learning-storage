@@ -28,6 +28,52 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  layouts:
+    application:
+      title:     "The Pragmatic Bookshelf"
+      home:      "Home"
+      questions: "Questions"
+      news:      "News"
+      contact:   "Contact"
+
+  store:
+    index:
+      title_html: "Your Pragmatic Catalog"
+    product:
+      add_html: "Add to Cart"
+
+  carts:
+    cart:
+      title:    "Your cart"
+      empty:    "Empty cart"
+      checkout: "Checkout"
+
+  number:
+    currency:
+        format:
+          unit:      "$"
+          precision: 2
+          separator: "."
+          delimiter: ","
+          format:    "%u%n"
+
+  orders:
+      new:
+        legend:           "Please Enter Your Details"
+      form:
+        name:             'Name'
+        address_html:     "Address"
+        email:            "E-mail"
+        pay_type:         "Pay with"
+        pay_prompt_html:  "Select a payment method"
+        submit:           "Place Order"
+
+  errors:
+    template:
+      body:     "There are problems with the following fields:"
+      header:
+        one:    "1 error has prohibited this %{model} from being saved:"
+        other:  "%{count} errors prohibited this %{model} from being saved"
+
+  thanks: "Gracias por su pedido"

@@ -1,5 +1,5 @@
 <div class="w-full">
-  <h1 class="mx-auto text-lg font-bold text-4xl">Welcome</h1>
+  <h1 class="mx-auto text-lg font-bold text-4xl prose-base"> Welcome: <%= @user.name %></h1>
   <p>
     It's <%= Time.now %>.
     We have <%= pluralize(@total_orders, "order") %>.

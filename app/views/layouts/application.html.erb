@@ -17,7 +17,7 @@
     <header class="flex justify-between bg-green-700">
       <%= image_tag 'logo.svg', alt: 'The Pragmatic Bookshelf' %>
       <h1><%= @page_title %></h1>
-        <h2 class="relative top-7 right-4 text-green-50"><%= l(Time.current, format: :long) %></h2>
+        <h2 class="relative top-7 right-4 text-green-50"></h2>
     </header>
 
     <section class="flex">
@@ -25,19 +25,22 @@
         <%= render partial: 'layouts/cart', locals: {cart: @cart } %>
 
         <ul class="text-gray-300 leading-8 mb-2">
-          <li><%= link_to 'Store', store_index_path %></li>
-          <li><%= link_to 'Carts', carts_path %></li>
+          <li><%= link_to t('.home'), store_index_path %></li>
+          <li><%= link_to t('.cart'), carts_path %></li>
+          <li><a href="/questions"><%= t('.questions') %></a></li>
+          <li><a href="/news"><%= t('.news') %></a></li>
+          <li><a href="/contact"><%= t('.contact') %></a></li>
         </ul>
 
-        <hr>
-
         <% if session[:user_id] %>
-          <ul class="text-gray-300 leading-8 mt-2">
-            <li><%= link_to 'Orders', orders_path %></li>
-            <li><%= link_to 'Products', products_path %></li>
-            <li><%= link_to 'Users', users_path %></li>
-            <li><%= button_to 'Logout', logout_path, method: :delete %></li>
-          </ul>
+        <hr class="my-2">
+
+        <ul class="text-gray-300 leading-8">
+          <li><%= link_to 'Orders', orders_path %></li>
+          <li><%= link_to 'Products', products_path %></li>
+          <li><%= link_to 'Users', users_path %></li>
+          <li><%= button_to 'Logout', logout_path, method: :delete %></li>
+        </ul>
         <% end %>
       </nav>
 
