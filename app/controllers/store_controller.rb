@@ -1,11 +1,15 @@
 class StoreController < ApplicationController
   include CurrentCart
-  
+
   skip_before_action :authorize
   before_action :set_cart
   before_action :count_presence, only: %i[ index ]
 
   def index
+    if params[:set_locale]
+      redirect_to store_index_url(locale: params[:set_locale])
+    end
+
     @products = Product.order(:title)
   end
 
