@@ -31,6 +31,21 @@
     <%= form.text_field :price, class: "input-field" %>
   </div>
 
+  <h1 class="font-bold text-sm">Set product locale</h1>
+
+  <div class="flex justify-items-center">
+    <div class="my-5">
+      <%= form.radio_button :locale, 'english', checked: @product.locale == 'english' %>
+      <%= form.label :locale, 'english' %>
+    </div>
+
+    <div class="my-5 ml-4">
+      <%= form.radio_button :locale, 'espanol', checked: @product.locale == 'espanol'%>
+      <%= form.label :locale, 'espanol' %>
+    </div>
+  </div>
+
+
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-green-600 text-white inline-block font-medium cursor-pointer" %>
   </div>

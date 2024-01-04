@@ -10,7 +10,13 @@ class StoreController < ApplicationController
       redirect_to store_index_url(locale: params[:set_locale])
     end
 
-    @products = Product.order(:title)
+    if I18n.locale.to_s == 'en'
+      @products = Product.where(locale: 'english')
+    elsif I18n.locale.to_s == 'es'
+      @products = Product.where(locale: 'espanol')
+    else
+      @products = Product.order(:title)
+    end
   end
 
   private
