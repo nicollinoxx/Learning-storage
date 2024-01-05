@@ -77,8 +77,8 @@ Rails.application.configure do
     user_name:      "dave",
     password:       "secret",
     enable_starttls_auto: true
-
-
   }
 
+
+  config.active_storage.service = :local 
 end

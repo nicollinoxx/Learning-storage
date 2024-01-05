@@ -76,4 +76,4 @@ en:
         one:    "1 error has prohibited this %{model} from being saved:"
         other:  "%{count} errors prohibited this %{model} from being saved"
 
-  thanks: "Gracias por su pedido"
+  thanks: "Thank you for your order"
