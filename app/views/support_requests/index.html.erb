@@ -11,6 +11,9 @@
             <%= support_request.body %>
       </blockquote>
     </p>
+
+    <hr>
+
     <% if support_request.order %>
       <h3>Recent Order</h3>
       <dl>
@@ -39,7 +42,37 @@
         </dd>
       </dl>
     <% else %>
-        <h3 class="notice">No associated order</h3>
+        <h3 class="notice">No associated recent order</h3>
+    <% end %>
+
+    <hr>
+    <h4>All orders associated with this email</h4>
+    <% @orders_all.each do |orders| %>
+      <% if orders.email == support_request.email && orders.id != support_request.order_id %>
+        <dl class="">
+          <dt>Name</dt>
+          <dd><%= orders.name %></dd>
+
+          <dt>Email</dt>
+          <dd><%= orders.email %></dd>
+
+          <dt>Address</dt>
+          <dd><%= orders.address %></dd>
+
+          <dt>pay type</dt>
+          <dd><%= orders.pay_type %></dd>
+        </dl>
+
+        <ul>
+          <% orders.line_items.each do |line_items| %>
+            <li>
+              <%= line_items.product.title %>
+              (<%= line_items.product.price %>)
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <hr>
     <% end %>
 
     <% if support_request.response.blank? %>

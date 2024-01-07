@@ -1,6 +1,7 @@
 class SupportRequestsController < ApplicationController
   def index
     @support_requests = SupportRequest.all
+    @orders_all = Order.all
   end
 
   def update
