@@ -6,7 +6,7 @@ class Product < ApplicationRecord
 
   before_destroy :ensure_not_referenced_by_any_line_item
 
-  validates :title, :description, :image_url, presence: true
+  validates :title, :description, :image_url, :locale, presence: true
   validates :title, uniqueness: true
   validates :image_url, allow_blank: true, format: {
     with:
